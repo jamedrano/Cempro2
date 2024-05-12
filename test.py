@@ -80,8 +80,8 @@ if uploaded_file is not None:
    st.pyplot(fig)
 
   with tab4:
-   molino2 = st.radio("** Seleccione Molino **", data['Molino'].unique())
-   tipo2 = st.radio("** Seleccione Tipo de Cemento **", data['Tipo de Cemento'].unique())
+   molino2 = st.radio("** Seleccione Molino a Modelar **", data['Molino'].unique())
+   tipo2 = st.radio("** Seleccione Tipo de Cemento a Modelar **", data['Tipo de Cemento'].unique())
    subdatos2 = data[(data['Tipo de Cemento']==tipo2)&(data['Molino']==molino2)]
    etapar = 0.08
    lambdapar = 5
