@@ -31,10 +31,10 @@ if uploaded_file is not None:
   @st.cache_data(experimental_allow_widgets=True)
   def load_data(uploaded_file,sh,h):
     data = pd.read_excel(uploaded_file,header=h,sheet_name=sh,engine='openpyxl')
+    data = preprocess(data)
     return data
   data = load_data(uploaded_file,sh,h)
-
-  data = preprocess(data)
+ 
   
   with tab1:
     st.write( '### 1. Datos Cargados ')
