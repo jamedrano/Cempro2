@@ -55,12 +55,12 @@ if uploaded_file is not None:
      st.dataframe(ss, use_container_width=True)
     
     elif selected == 'Tabulacion de Valores de las Columnas':           
-     sub_selected = st.sidebar.radio( "*Which field should be investigated?*",data.select_dtypes('object').columns)
+     sub_selected = st.radio( "*Columna a Investigar?*",data.select_dtypes('object').columns)
      vc = data[sub_selected].value_counts().reset_index().rename(columns={'count':'Count'}).reset_index(drop=True)
      st.dataframe(vc, use_container_width=True)
     
     else:
-     st.write('###### The data has the dimensions :',data.shape)
+     st.write('###### Dimensiones de la Data :',data.shape)
 
    
   
