@@ -25,7 +25,7 @@ uploaded_file = st.sidebar.file_uploader("*Upload file here*")
 if uploaded_file is not None:
     file_path = uploaded_file
 
-    if ft == 'Excel':
+   
         try:
             #User prompt to select sheet name in uploaded Excel
             sh = st.sidebar.selectbox("*Which sheet name in the file should be read?*",pd.ExcelFile(file_path).sheet_names)
@@ -39,7 +39,7 @@ if uploaded_file is not None:
     @st.cache_data(experimental_allow_widgets=True)
     def load_data(file_path,ft,sh,h):
         
-        if ft == 'Excel':
+       
             try:
                 #Reading the excel file
                 data = pd.read_excel(file_path,header=h,sheet_name=sh,engine='openpyxl')
