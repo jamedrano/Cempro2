@@ -16,6 +16,7 @@ def preprocess(data):
   for col in data.columns:
     if data[col].dtype == 'O':
       data[col] = data[col].str.strip()
+  return data
   
 
 st.set_page_config(page_title='Modelo Predictivo Resistencia a la Compresión CEMPRO', page_icon=None, layout="wide")
