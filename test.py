@@ -62,6 +62,9 @@ if uploaded_file is not None:
     else:
      st.write('###### Dimensiones de la Data :',data.shape)
 
+  with tab3:
+   molino = st.radio("** Seleccione Molino **", data['Molino'].unique()
+
    
   
     
