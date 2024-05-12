@@ -12,10 +12,7 @@ from sklearn.model_selection import train_test_split
 import sklearn.metrics as mt
 
 def preprocess(data):
-  data.columns = data.columns.str.strip()
-  for col in data.columns:
-    if data[col].dtype == 'O':
-      data[col] = data[col].str.strip()
+  
   return data
   
 
@@ -32,6 +29,10 @@ if uploaded_file is not None:
   @st.cache_data(experimental_allow_widgets=True)
   def load_data(uploaded_file,sh,h):
     data = pd.read_excel(uploaded_file,header=h,sheet_name=sh,engine='openpyxl')
+    data.columns = data.columns.str.strip()
+    for col in data.columns:
+      if data[col].dtype == 'O':
+        data[col] = data[col].str.strip()
     # data = preprocess(data)
     return data
   data = load_data(uploaded_file,sh,h)
