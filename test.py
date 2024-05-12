@@ -26,6 +26,12 @@ if uploaded_file is not None:
     data = pd.read_excel(uploaded_file,header=h,sheet_name=sh,engine='openpyxl')
     return data
   data = load_data(uploaded_file,sh,h)
+  
+  with tab1:
+    st.write( '### 1. Datos Cargados ')
+    st.dataframe(data, use_container_width=True)
+
+  
     
     
     
