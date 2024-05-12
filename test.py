@@ -129,7 +129,7 @@ if uploaded_file is not None:
    
    if edad == "7 dias":
     quitar = ['Fecha','Tipo de Cemento','Molino','R7D','R28D']
-    respuesta = 'R73D'
+    respuesta = 'R7D'
     (X,y,pred) = modelo(subdatos2, quitar, respuesta)
     fig2, axs2 = plt.subplots()
     fig2.set_size_inches(6,6)
