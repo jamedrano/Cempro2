@@ -85,22 +85,27 @@ if uploaded_file is not None:
    subdatos2 = data[(data['Tipo de Cemento']==tipo2)&(data['Molino']==molino2)]
    etapar = 0.08
    lambdapar = 5
+
+   
    X = subdatos2.drop(['Fecha','Tipo de Cemento','Molino','R1D','R3D','R7D','R28D'], axis=1)
    y = subdatos2['R1D']
-   X_train, X_test, y_train, y_test=train_test_split(X,y,test_size=0.1)
+   # X_train, X_test, y_train, y_test=train_test_split(X,y,test_size=0.1)
    modeloXGB = XGBRegressor(booster='gblinear', eta=etapar, reg_lambda=lambdapar)
-   modeloXGB.fit(X_train, y_train)
-   pred_test =  modeloXGB.predict(X_test)
+   # modeloXGB.fit(X_train, y_train)
+   # pred_test =  modeloXGB.predict(X_test)
+   modeloXGB.fit(X, y)
+   pred = modeloXGB.predict(X) 
    
    fig2, axs2 = plt.subplots()
    fig2.set_size_inches(6,6)
-   axs2.scatter(y_test, pred_test)
+   # axs2.scatter(y_test, pred_test)
+   axs2.scatter(y, pred)
    st.pyplot(fig2)
 
    st.write("Porcentaje de Error")
-   st.write(mt.mean_absolute_percentage_error(y_test, pred_test))
+   st.write(mt.mean_absolute_percentage_error(y, pred))
    
-   datosprueba = pd.DataFrame({'ytest':y_test, 'pred':pred_test})
+   datosprueba = pd.DataFrame({'ytest':y, 'pred':pred})
    st.dataframe(datosprueba)
    
 
