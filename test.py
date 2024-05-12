@@ -80,13 +80,13 @@ if uploaded_file is not None:
    st.pyplot(fig)
 
   with tab4:
-   molino = st.radio("** Seleccione Molino **", data['Molino'].unique())
-   tipo = st.radio("** Seleccione Tipo de Cemento **", data['Tipo de Cemento'].unique())
-   subdatos = data[(data['Tipo de Cemento']==tipo)&(data['Molino']==molino)]
+   molino2 = st.radio("** Seleccione Molino **", data['Molino'].unique())
+   tipo2 = st.radio("** Seleccione Tipo de Cemento **", data['Tipo de Cemento'].unique())
+   subdatos2 = data[(data['Tipo de Cemento']==tipo2)&(data['Molino']==molino2)]
    etapar = 0.08
    lambdapar = 5
-   X = subdatos.drop(['Fecha','Tipo de Cemento','Molino','R1D','R3D','R7D','R28D'], axis=1)
-   y = subdatos['R1D']
+   X = subdatos2.drop(['Fecha','Tipo de Cemento','Molino','R1D','R3D','R7D','R28D'], axis=1)
+   y = subdatos2['R1D']
    X_train, X_test, y_train, y_test=train_test_split(X,y,test_size=0.1)
    modeloXGB = XGBRegressor(booster='gblinear', eta=etapar, reg_lambda=lambdapar)
    modeloXGB.fit(X_train, y_train)
