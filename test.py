@@ -66,7 +66,7 @@ if uploaded_file is not None:
    molino = st.radio("** Seleccione Molino **", data['Molino'].unique())
    tipo = st.radio("** Seleccione Tipo de Cemento **", data['Tipo de Cemento'].unique())
    subdatos = data[(data['Tipo de Cemento']==tipo)&(data['Molino']==molino)]
-   st.write( '### 3. Visual Insights ')
+   st.write( '### 3. Exploración Gráfica ')
    fig, axs = plt.subplots(2,2)
    fig.set_size_inches(10,6)
    axs[0,0].boxplot(subdatos['R1D'])
@@ -78,6 +78,26 @@ if uploaded_file is not None:
    axs[1,1].boxplot(subdatos['R28D'])
    axs[1,1].set_title("28 dias")
    st.pyplot(fig)
+
+  with tab4:
+   molino = st.radio("** Seleccione Molino **", data['Molino'].unique())
+   tipo = st.radio("** Seleccione Tipo de Cemento **", data['Tipo de Cemento'].unique())
+   subdatos = data[(data['Tipo de Cemento']==tipo)&(data['Molino']==molino)]
+   etapar = 0.08
+   lambdapar = 5
+   X = subdatos.drop(['Fecha','Tipo de Cemento','Molino','R1D','R3D','R7D','R28D'], axis=1)
+   y = subdatos['R1D']
+   X_train, X_test, y_train, y_test=train_test_split(X,y,test_size=0.1)
+   modeloXGB = XGBRegressor(booster='gblinear', eta=etapar, reg_lambda=lambdapar)
+   modeloXGB.fit(X_train, y_train)
+   pred_test =  modeloXGB.predict(X_test)
+   st.write(mt.mean_absolute_percentage_error(y_test, pred_test))
+   fig2, axs2 = plt.subplots()
+   fig2.set_size_inches(6,6)
+   axs2.scatter(y_test, pred_test)
+   st.pyplot(fig2)
+   datosprueba = pd.DataFrame({'ytest':y_test, 'pred':pred_test})
+   st.dataframe(datosprueba)
    
 
    
