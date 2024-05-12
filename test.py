@@ -64,6 +64,21 @@ if uploaded_file is not None:
 
   with tab3:
    molino = st.radio("** Seleccione Molino **", data['Molino'].unique())
+   tipo = st.radio("** Seleccione Tipo de Cemento **", data['Tipo de Cemento'].unique())
+   subdatos = data[(data['Tipo de Cemento']==tipo)&(data['Molino']==molino)]
+   st.write( '### 3. Visual Insights ')
+   fig, axs = plt.subplots(2,2)
+   fig.set_size_inches(10,6)
+   axs[0,0].boxplot(subdatos['R1D'])
+   axs[0,0].set_title("1 dia")
+   axs[0,1].boxplot(subdatos['R3D'])
+   axs[0,1].set_title("3 dias")
+   axs[1,0].boxplot(subdatos['R7D'])
+   axs[1,0].set_title("7 dias")
+   axs[1,1].boxplot(subdatos['R28D'])
+   axs[1,1].set_title("28 dias")
+   st.pyplot(fig)
+   
 
    
   
