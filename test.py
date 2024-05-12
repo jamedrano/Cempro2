@@ -82,6 +82,9 @@ if uploaded_file is not None:
   with tab4:
    molino2 = st.radio("** Seleccione Molino a Modelar **", data['Molino'].unique())
    tipo2 = st.radio("** Seleccione Tipo de Cemento a Modelar **", data['Tipo de Cemento'].unique())
+
+   edad =  st.radio("** Edad a Predecir **", ["1 dia", "3 dias", "7 dias", "28 dias"])
+   
    subdatos2 = data[(data['Tipo de Cemento']==tipo2)&(data['Molino']==molino2)]
    etapar = 0.08
    lambdapar = 5
