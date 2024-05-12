@@ -142,7 +142,20 @@ if uploaded_file is not None:
     datosprueba = pd.DataFrame({'ytest':y, 'pred':pred})
     st.dataframe(datosprueba)
    
-     
+   if edad == "28 dias":
+    quitar = ['Fecha','Tipo de Cemento','Molino','R7D','R28D']
+    respuesta = 'R28D'
+    (X,y,pred) = modelo(subdatos2, quitar, respuesta)
+    fig2, axs2 = plt.subplots()
+    fig2.set_size_inches(6,6)
+    axs2.scatter(y, pred)
+    st.pyplot(fig2)
+
+    st.write("Porcentaje de Error")
+    st.write(mt.mean_absolute_percentage_error(y, pred))
+   
+    datosprueba = pd.DataFrame({'ytest':y, 'pred':pred})
+    st.dataframe(datosprueba)
    
    
    
