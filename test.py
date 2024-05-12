@@ -19,9 +19,6 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs(['Datos', 'Descripcion Datos', 'Graficos'
 #Creating section in sidebar
 st.sidebar.write("****A) File upload****")
 
-#User prompt to select file type
-ft = st.sidebar.selectbox("*What is the file type?*",["Excel", "csv"])
-
 #Creating dynamic file upload option in sidebar
 uploaded_file = st.sidebar.file_uploader("*Upload file here*")
 
@@ -37,16 +34,7 @@ if uploaded_file is not None:
         except:
             st.info("File is not recognised as an Excel file")
             sys.exit()
-    
-    elif ft == 'csv':
-        try:
-            #No need for sh and h for csv, set them to None
-            sh = None
-            h = None
-        except:
-            st.info("File is not recognised as a csv file.")
-            sys.exit()
-
+       
     #Caching function to load data
     @st.cache_data(experimental_allow_widgets=True)
     def load_data(file_path,ft,sh,h):
@@ -58,14 +46,7 @@ if uploaded_file is not None:
             except:
                 st.infdo("File is not recognised as an Excel file.")
                 sys.exit()
-    
-        elif ft == 'csv': 
-            try:
-                #Reading the csv file
-                data = pd.read_csv(file_path)
-            except:
-                st.info("File is not recognised as a csv file.")
-                sys.exit()
+         
         
         return data
 
