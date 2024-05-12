@@ -11,10 +11,7 @@ from xgboost import XGBClassifier
 from sklearn.model_selection import train_test_split
 import sklearn.metrics as mt
 
-def preprocess(data):
-  
-  return data
-  
+ 
 
 st.set_page_config(page_title='Modelo Predictivo Resistencia a la Compresión CEMPRO', page_icon=None, layout="wide")
 
@@ -32,8 +29,7 @@ if uploaded_file is not None:
     data.columns = data.columns.str.strip()
     for col in data.columns:
       if data[col].dtype == 'O':
-        data[col] = data[col].str.strip()
-    # data = preprocess(data)
+        data[col] = data[col].str.strip()    
     return data
   data = load_data(uploaded_file,sh,h)
  
@@ -42,6 +38,13 @@ if uploaded_file is not None:
     st.write( '### 1. Datos Cargados ')
     st.dataframe(data, use_container_width=True)
 
+  with tab2:
+    st.write( '### 2. High-Level Overview ')
+    selected = st.radio( "**B) What would you like to know about the data?**", 
+                                    ["Data Dimensions",
+                                     "Field Descriptions",
+                                    "Summary Statistics", 
+                                    "Value Counts of Fields"])
   
     
     
