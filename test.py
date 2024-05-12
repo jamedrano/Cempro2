@@ -15,5 +15,17 @@ st.set_page_config(page_title='Modelo Predictivo Resistencia a la Compresión CE
 
 tab1, tab2, tab3, tab4, tab5 = st.tabs(['Datos', 'Descripcion Datos', 'Graficos', 'Modelo', 'Descargar Datos'])
 
-#Creating section in sidebar
-st.sidebar.write("****A) Cargar Archivo de Datos en Excel****")
+st.sidebar.write("****Cargar Archivo de Datos en Excel****")
+uploaded_file = st.sidebar.file_uploader("*Upload file here*")
+
+if uploaded_file is not None:
+  sh = st.sidebar.selectbox("*Que hoja contiene los datos?*",pd.ExcelFile(file_path).sheet_names)
+  h = st.sidebar.number_input("*Que fila contiene los nombres de columnas?*",0,100)
+  @st.cache_data(experimental_allow_widgets=True)
+  def load_data(uploaded_file,sh,h):
+    data = pd.read_excel(uploaded_file,header=h,sheet_name=sh,engine='openpyxl')
+    return data
+  data = load_data(uploaded_file,sh,h)
+    
+    
+    
