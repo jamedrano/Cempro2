@@ -37,7 +37,7 @@ if uploaded_file is not None:
        
     #Caching function to load data
     @st.cache_data(experimental_allow_widgets=True)
-    def load_data(file_path,ft,sh,h):
+    def load_data(file_path,sh,h):
         
        
         try:
@@ -50,7 +50,7 @@ if uploaded_file is not None:
         
         return data
 
-    data = load_data(file_path,ft,sh,h)
+    data = load_data(file_path,sh,h)
 
     @st.cache_data(experimental_allow_widgets=True)
     def preprocess(data):
