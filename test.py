@@ -86,30 +86,35 @@ if uploaded_file is not None:
    edad =  st.radio("** Edad a Predecir **", ["1 dia", "3 dias", "7 dias", "28 dias"])
    
    subdatos2 = data[(data['Tipo de Cemento']==tipo2)&(data['Molino']==molino2)]
-   etapar = 0.08
-   lambdapar = 5
+   
+   def modelo(datos, quitar, respuesta):
+    etapar = 0.08
+    lambdapar = 5
+    X = datos.drop(quitar, axis=1)
+    y = datos[respuesta]
+    modeloXGB = XGBRegressor(booster='gblinear', eta=etapar, reg_lambda=lambdapar)
+    modeloXGB.fit(X, y)
+    pred = modeloXGB.predict(X)
+    return (X, y, pred)
 
-   
-   X = subdatos2.drop(['Fecha','Tipo de Cemento','Molino','R1D','R3D','R7D','R28D'], axis=1)
-   y = subdatos2['R1D']
-   # X_train, X_test, y_train, y_test=train_test_split(X,y,test_size=0.1)
-   modeloXGB = XGBRegressor(booster='gblinear', eta=etapar, reg_lambda=lambdapar)
-   # modeloXGB.fit(X_train, y_train)
-   # pred_test =  modeloXGB.predict(X_test)
-   modeloXGB.fit(X, y)
-   pred = modeloXGB.predict(X) 
-   
-   fig2, axs2 = plt.subplots()
-   fig2.set_size_inches(6,6)
-   # axs2.scatter(y_test, pred_test)
-   axs2.scatter(y, pred)
-   st.pyplot(fig2)
+   if edad == "1 dia":
+    quitar = ['Fecha','Tipo de Cemento','Molino','R1D','R3D','R7D','R28D']
+    respuesta = 'R1D'
+    (X,y,pred) = modelo(subdatos2, quitar, respuesta)
+    fig2, axs2 = plt.subplots()
+    fig2.set_size_inches(6,6)
+    axs2.scatter(y, pred)
+    st.pyplot(fig2)
 
-   st.write("Porcentaje de Error")
-   st.write(mt.mean_absolute_percentage_error(y, pred))
+    st.write("Porcentaje de Error")
+    st.write(mt.mean_absolute_percentage_error(y, pred))
    
-   datosprueba = pd.DataFrame({'ytest':y, 'pred':pred})
-   st.dataframe(datosprueba)
+    datosprueba = pd.DataFrame({'ytest':y, 'pred':pred})
+    st.dataframe(datosprueba)
+   
+     
+   
+   
    
 
    
