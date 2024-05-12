@@ -39,12 +39,30 @@ if uploaded_file is not None:
     st.dataframe(data, use_container_width=True)
 
   with tab2:
-    st.write( '### 2. High-Level Overview ')
-    selected = st.radio( "**B) What would you like to know about the data?**", 
-                                    ["Data Dimensions",
-                                     "Field Descriptions",
-                                    "Summary Statistics", 
-                                    "Value Counts of Fields"])
+    st.write( '### 2. Descripción de los Datos ')
+    selected = st.radio( "**B) Seleccione lo que desea ver de los datos?**", 
+                                    ["Dimensiones",
+                                     "Descripcion de las Variables",
+                                    "Estadisticas Descriptivas", 
+                                    "Tabulacion de Valores de las Columnas"])
+   
+    if selected == 'Descripcion de las Variables':
+     fd = data.dtypes.reset_index().rename(columns={'index':'Field Name',0:'Field Type'}).sort_values(by='Field Type',ascending=False).reset_index(drop=True)
+     st.dataframe(fd, use_container_width=True)
+    
+    elif selected == 'Estadisticas Descriptivas':
+     ss = pd.DataFrame(data.describe(include='all').round(2).fillna(''))
+     st.dataframe(ss, use_container_width=True)
+    
+    elif selected == 'Tabulacion de Valores de las Columnas':           
+     sub_selected = st.sidebar.radio( "*Which field should be investigated?*",data.select_dtypes('object').columns)
+     vc = data[sub_selected].value_counts().reset_index().rename(columns={'count':'Count'}).reset_index(drop=True)
+     st.dataframe(vc, use_container_width=True)
+    
+    else:
+     st.write('###### The data has the dimensions :',data.shape)
+
+   
   
     
     
