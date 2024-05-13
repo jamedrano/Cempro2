@@ -97,9 +97,7 @@ if uploaded_file is not None:
     pred = modeloXGB.predict(X)
     return (X, y, pred)
 
-   if edad == "1 dia":
-    quitar = ['Fecha','Tipo de Cemento','Molino','R1D','R3D','R7D','R28D']
-    respuesta = 'R1D'
+   def desplegar():
     (X,y,pred) = modelo(subdatos2, quitar, respuesta)
     fig2, axs2 = plt.subplots()
     fig2.set_size_inches(6,6)
@@ -111,6 +109,24 @@ if uploaded_file is not None:
    
     datosprueba = pd.DataFrame({'ytest':y, 'pred':pred})
     st.dataframe(datosprueba)
+
+    
+
+   if edad == "1 dia":
+    quitar = ['Fecha','Tipo de Cemento','Molino','R1D','R3D','R7D','R28D']
+    respuesta = 'R1D'
+    desplegar()
+    #(X,y,pred) = modelo(subdatos2, quitar, respuesta)
+    #fig2, axs2 = plt.subplots()
+    #fig2.set_size_inches(6,6)
+    #axs2.scatter(y, pred)
+    #st.pyplot(fig2)
+
+    #st.write("Porcentaje de Error")
+    #st.write(mt.mean_absolute_percentage_error(y, pred))
+   
+    #datosprueba = pd.DataFrame({'ytest':y, 'pred':pred})
+    #st.dataframe(datosprueba)
 
    if edad == "3 dias":
     quitar = ['Fecha','Tipo de Cemento','Molino','R3D','R7D','R28D']
