@@ -106,6 +106,8 @@ if uploaded_file is not None:
 
     st.write("Porcentaje de Error")
     st.write(mt.mean_absolute_percentage_error(y, pred))
+    st.write("Coef. de Determinación")
+    st.write(mt.r2_score(y,pred))
    
     datosprueba = pd.DataFrame({'ytest':y, 'pred':pred})
     st.dataframe(datosprueba)
